@@ -1197,6 +1197,11 @@ public:
 
 	virtual void set_physics_interpolation_enabled(bool p_enabled) override;
 
+	/* SYNCHRONIZATION */
+
+	virtual void set_cpu_gpu_sync_mode(RSE::CpuGpuSyncMode p_sync_mode) override;
+	virtual RSE::CpuGpuSyncMode get_cpu_gpu_sync_mode() const override;
+
 	/* EVENT QUEUING */
 
 	virtual void request_frame_drawn_callback(const Callable &p_callable) override;

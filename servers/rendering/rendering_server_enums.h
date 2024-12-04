@@ -899,6 +899,13 @@ enum GlobalShaderParameterType {
 	GLOBAL_VAR_TYPE_MAX,
 };
 
+/* SYNCHRONIZATION */
+
+enum CpuGpuSyncMode {
+	CPU_GPU_SYNC_PARALLEL,
+	CPU_GPU_SYNC_SEQUENTIAL,
+};
+
 /* STATUS INFORMATION */
 
 enum RenderingInfo {

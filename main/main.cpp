@@ -206,6 +206,7 @@ String tablet_driver = "";
 String text_driver = "";
 static int text_driver_idx = -1;
 static int audio_driver_idx = -1;
+static int cpu_gpu_sync_mode = -1;
 
 // Engine config/tools
 
@@ -621,6 +622,7 @@ void Main::print_help(const char *p_binary) {
 	print_help_option("--rendering-method <renderer>", "Renderer name. Requires driver support.\n");
 	print_help_option("--rendering-driver <driver>", "Rendering driver (depends on display driver).\n");
 	print_help_option("--gpu-index <device_index>", "Use a specific GPU (only available on the Forward+/Mobile renderers; run with --verbose to get a list of available devices).\n");
+	print_help_option("--cpu-gpu-sync <mode>", "Override the CPU/GPU synchronization mode [\"parallel\", \"sequential\"].\n");
 	print_help_option("--text-driver <driver>", "Text driver (used for font rendering, bidirectional support and shaping).\n");
 	print_help_option("--tablet-driver <driver>", "Pen tablet input driver.\n");
 	print_help_option("--headless", "Enable headless mode (--display-driver headless --audio-driver Dummy). Useful for servers and with --script.\n");
@@ -1330,6 +1332,22 @@ Error Main::setup(const char *execpath, int argc, char *argv[], bool p_second_ph
 				N = N->next();
 			} else {
 				OS::get_singleton()->print("Missing rendering driver argument, aborting.\n");
+				goto error;
+			}
+		} else if (arg == "--cpu-gpu-sync") {
+			if (N) {
+				if (N->get() == "parallel") {
+					cpu_gpu_sync_mode = RSE::CpuGpuSyncMode::CPU_GPU_SYNC_PARALLEL;
+				} else if (N->get() == "sequential") {
+					cpu_gpu_sync_mode = RSE::CpuGpuSyncMode::CPU_GPU_SYNC_SEQUENTIAL;
+				} else {
+					OS::get_singleton()->print("Unknown CPU/GPU synchronization mode, aborting.\nValid options are 'parallel' and 'sequential'.\n");
+					goto error;
+				}
+
+				N = N->next();
+			} else {
+				OS::get_singleton()->print("Missing CPU/GPU synchronization mode argument, aborting.\n");
 				goto error;
 			}
 		} else if (arg == "-f" || arg == "--fullscreen") { // force fullscreen
@@ -3558,6 +3576,8 @@ Error Main::setup2(bool p_show_boot_logo) {
 	{
 		OS::get_singleton()->benchmark_begin_measure("Servers", "Rendering");
 
+		GLOBAL_DEF(PropertyInfo(Variant::INT, "rendering/driver/synchronization/cpu_gpu_sync", PROPERTY_HINT_ENUM, "Parallel,Sequential"), 0);
+
 		rendering_server = memnew(RenderingServerDefault(OS::get_singleton()->is_separate_thread_rendering_enabled()));
 
 		rendering_server->init();
@@ -3569,6 +3589,12 @@ Error Main::setup2(bool p_show_boot_logo) {
 		}
 
 		OS::get_singleton()->benchmark_end_measure("Servers", "Rendering");
+
+		if (cpu_gpu_sync_mode >= 0) {
+			rendering_server->set_cpu_gpu_sync_mode(RSE::CpuGpuSyncMode(cpu_gpu_sync_mode));
+		} else {
+			rendering_server->set_cpu_gpu_sync_mode(RSE::CpuGpuSyncMode((int)GLOBAL_GET("rendering/driver/synchronization/cpu_gpu_sync")));
+		}
 	}
 
 #ifdef UNIX_ENABLED

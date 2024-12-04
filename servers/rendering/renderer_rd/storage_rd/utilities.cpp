@@ -247,6 +247,16 @@ String Utilities::get_captured_timestamp_name(uint32_t p_index) const {
 	return RD::get_singleton()->get_captured_timestamp_name(p_index);
 }
 
+/* SYNCHRONIZATION */
+
+void Utilities::set_cpu_gpu_sync_mode(RSE::CpuGpuSyncMode p_sync_mode) {
+	RD::get_singleton()->set_cpu_gpu_sync_mode((RD::CpuGpuSyncMode)p_sync_mode);
+}
+
+RSE::CpuGpuSyncMode Utilities::get_cpu_gpu_sync_mode() const {
+	return (RSE::CpuGpuSyncMode)RD::get_singleton()->get_cpu_gpu_sync_mode();
+}
+
 /* MISC */
 
 void Utilities::update_dirty_resources() {

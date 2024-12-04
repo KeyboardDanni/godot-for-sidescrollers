@@ -210,6 +210,15 @@ public:
 	void _capture_timestamps_begin();
 	void capture_timestamps_end();
 
+	/* SYNCHRONIZATION */
+
+	virtual void set_cpu_gpu_sync_mode(RSE::CpuGpuSyncMode p_sync_mode) override;
+	virtual RSE::CpuGpuSyncMode get_cpu_gpu_sync_mode() const override { return _cpu_gpu_sync_mode; }
+
+private:
+	RSE::CpuGpuSyncMode _cpu_gpu_sync_mode = RSE::CpuGpuSyncMode::CPU_GPU_SYNC_PARALLEL;
+
+public:
 	/* MISC */
 
 	virtual void update_dirty_resources() override;

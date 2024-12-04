@@ -959,6 +959,11 @@ public:
 
 	virtual void set_physics_interpolation_enabled(bool p_enabled) = 0;
 
+	/* SYNCHRONIZATION */
+
+	virtual void set_cpu_gpu_sync_mode(RSE::CpuGpuSyncMode p_sync_mode) = 0;
+	virtual RSE::CpuGpuSyncMode get_cpu_gpu_sync_mode() const = 0;
+
 	/* EVENT QUEUING */
 
 	virtual void request_frame_drawn_callback(const Callable &p_callable) = 0;
@@ -1166,6 +1171,7 @@ VARIANT_ENUM_CAST_EXT(RSE::RenderingInfo, RenderingServer::RenderingInfo);
 VARIANT_ENUM_CAST_EXT(RSE::SplashStretchMode, RenderingServer::SplashStretchMode);
 VARIANT_ENUM_CAST_EXT(RSE::CanvasTextureChannel, RenderingServer::CanvasTextureChannel);
 VARIANT_ENUM_CAST_EXT(RSE::BakeChannels, RenderingServer::BakeChannels);
+VARIANT_ENUM_CAST_EXT(RSE::CpuGpuSyncMode, RenderingServer::CpuGpuSyncMode);
 
 #ifndef DISABLE_DEPRECATED
 VARIANT_ENUM_CAST_EXT(RSE::Features, RenderingServer::Features);
