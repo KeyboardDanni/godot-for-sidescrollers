@@ -25,7 +25,11 @@ The actual scripts for this are found in the `main` branch.
 
 The generated `gfs_patched` branch should not be modified directly, as git-assembler will overwrite its history. Changes should instead be made on patch branches and then added as merge steps inside the `assembly` file.
 
-## What patches are included?
+## Which version?
+
+Godot for Sidescrollers is currently patched against **4.4.1 stable**.
+
+## Which patches are included?
 
 Generally speaking, Godot for Sidescrollers tries to avoid making breaking changes where possible. A project created in vanilla Godot should be able to open fine in Godot for Sidescrollers, and a project made in GfS should work in vanilla with only small changes, if any.
 
