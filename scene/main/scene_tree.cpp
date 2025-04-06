@@ -483,9 +483,10 @@ void SceneTree::set_physics_interpolation_enabled(bool p_enabled) {
 	_physics_interpolation_enabled = p_enabled;
 	RenderingServer::get_singleton()->set_physics_interpolation_enabled(p_enabled);
 
-	// Perform an auto reset on the root node for convenience for the user.
+	// If physics interpolation was enabled at runtime, existing nodes might have uninitialized
+	//  data, so inform everyone that the setting changed.
 	if (root) {
-		root->reset_physics_interpolation();
+		root->propagate_notification(Node::NOTIFICATION_TREE_PHYSICS_INTERPOLATION_CHANGED);
 	}
 }
 
