@@ -41,9 +41,9 @@
 void EditorMainScreen::_notification(int p_what) {
 	switch (p_what) {
 		case NOTIFICATION_READY: {
-			if (EDITOR_3D < buttons.size() && buttons[EDITOR_3D]->is_visible()) {
-				// If the 3D editor is enabled, use this as the default.
-				select(EDITOR_3D);
+			if (EDITOR_2D < buttons.size() && buttons[EDITOR_2D]->is_visible()) {
+				// If the 2D editor is enabled, use this as the default.
+				select(EDITOR_2D);
 				return;
 			}
 
