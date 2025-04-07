@@ -21,9 +21,11 @@ The project's longterm goal is for Godot for Sidescrollers to become redundant.
 
 This project uses [git-assembler](https://www.thregr.org/wavexx/software/git-assembler/) to simplify merging patches on top of the latest stable release by allowing each patch to be in a separate branch, so they can all be merged into a fresh branch without complicating the revision history.
 
-The actual scripts for this are found in the `main` branch.
+The actual scripts for this are found in the `scripts` branch.
 
 The generated `gfs_patched` branch should not be modified directly, as git-assembler will overwrite its history. Changes should instead be made on patch branches and then added as merge steps inside the `assembly` file.
+
+Special thanks to [fire](https://github.com/fire) for guiding me toward this workflow. He's a developer for the [V-Sekai](https://github.com/V-Sekai) social VR project, which maintains its own Godot fork. Go check it out!
 
 ## Which version?
 
@@ -39,4 +41,4 @@ A list of patches can be found in `PATCHES.md`.
 
 ## Licensing
 
-Code for the patches is licensed under the MIT License, the [same licensed used by Godot](https://github.com/godotengine/godot/blob/master/LICENSE.txt).
+Code for the patches is licensed under the MIT License, the [same license used by Godot](https://github.com/godotengine/godot/blob/master/LICENSE.txt).
