@@ -1,5 +1,5 @@
 stage gfs_patched 4.4.1-stable
 
-merge gfs_patched renderer_low_latency
-merge gfs_patched physics_lerp_settings_fix
-merge gfs_patched fork_readme
+merge gfs_patched patches/renderer_low_latency
+merge gfs_patched patches/physics_lerp_settings_fix
+merge gfs_patched patches/fork_readme
