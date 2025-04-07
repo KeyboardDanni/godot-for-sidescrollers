@@ -10,7 +10,4 @@
         - Any static nodes that start out invisible will shake violently once they are unhidden.
         - Camera stops updating completely.
     - These issues may be fixed in the pending physics interpolation rework. Until then, this patch acts as a stopgap.
-- `patches/editor_2d_defaults` - 2D-friendly editor defaults.
-    - Changes the default editor view from 3D to 2D.
-    - Obviously not a good candidate for upstream.
 - `patches/fork_readme` - Godot for Sidescrollers readme.
