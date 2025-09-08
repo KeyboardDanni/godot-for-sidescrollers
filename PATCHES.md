@@ -10,4 +10,9 @@
         - Any static nodes that start out invisible will shake violently once they are unhidden.
         - Camera stops updating completely.
     - These issues may be fixed in the pending physics interpolation rework. Until then, this patch acts as a stopgap.
+- `patches/103257_simplify_array_inspector` - Condense Inspector layout for Arrays
+  - Improves UX when working with arrays and dictionaries within the inspector.
+  - Based on https://github.com/godotengine/godot/pull/103257
+- `patches/restrict_main_args` - Restrict main args
+  - Removes some executable commandline arguments that probably shouldn't be exposed in exports.
 - `patches/fork_readme` - Godot for Sidescrollers readme.
