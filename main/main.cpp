@@ -533,8 +533,10 @@ void Main::print_help(const char *p_binary) {
 #else
 	print_help_option("--render-thread <mode>", "Render thread mode (\"unsafe\" [deprecated], \"safe\", \"separate\").\n");
 #endif
+#if defined(DEBUG_ENABLED)
 	print_help_option("--remote-fs <address>", "Remote filesystem (<host/IP>[:<port>] address).\n");
 	print_help_option("--remote-fs-password <password>", "Password for remote filesystem.\n");
+#endif
 
 	print_help_option("--audio-driver <driver>", "Audio driver [");
 	for (int i = 0; i < AudioDriverManager::get_driver_count(); i++) {
@@ -573,30 +575,38 @@ void Main::print_help(const char *p_binary) {
 	print_help_option("--headless", "Enable headless mode (--display-driver headless --audio-driver Dummy). Useful for servers and with --script.\n");
 	print_help_option("--log-file <file>", "Write output/error log to the specified path instead of the default location defined by the project.\n");
 	print_help_option("", "<file> path should be absolute or relative to the project directory.\n");
+#ifdef DEBUG_ENABLED
 	print_help_option("--write-movie <file>", "Write a video to the specified path (usually with .avi or .png extension).\n");
 	print_help_option("", "--fixed-fps is forced when enabled, but it can be used to change movie FPS.\n");
 	print_help_option("", "--disable-vsync can speed up movie writing but makes interaction more difficult.\n");
 	print_help_option("", "--quit-after can be used to specify the number of frames to write.\n");
+#endif
 
 	print_help_title("Display options");
+#ifdef DEBUG_ENABLED
 	print_help_option("-f, --fullscreen", "Request fullscreen mode.\n");
 	print_help_option("-m, --maximized", "Request a maximized window.\n");
 	print_help_option("-w, --windowed", "Request windowed mode.\n");
 	print_help_option("-t, --always-on-top", "Request an always-on-top window.\n");
 	print_help_option("--resolution <W>x<H>", "Request window resolution.\n");
 	print_help_option("--position <X>,<Y>", "Request window position.\n");
+#endif
 	print_help_option("--screen <N>", "Request window screen.\n");
 	print_help_option("--single-window", "Use a single window (no separate subwindows).\n");
+#ifdef DEBUG_ENABLED
 #ifndef _3D_DISABLED
 	print_help_option("--xr-mode <mode>", "Select XR (Extended Reality) mode [\"default\", \"off\", \"on\"].\n");
 #endif
 	print_help_option("--wid <window_id>", "Request parented to window.\n");
+#endif
 
 	print_help_title("Debug options");
+#ifdef DEBUG_ENABLED
 	print_help_option("-d, --debug", "Debug (local stdout debugger).\n");
 	print_help_option("-b, --breakpoints", "Breakpoint list as source::line comma-separated pairs, no spaces (use %%20 instead).\n");
 	print_help_option("--profiling", "Enable profiling in the script debugger.\n");
 	print_help_option("--gpu-profile", "Show a GPU profile of the tasks that took the most time during frame rendering.\n");
+#endif
 	print_help_option("--gpu-validation", "Enable graphics API validation layers for debugging.\n");
 #ifdef DEBUG_ENABLED
 	print_help_option("--gpu-abort", "Abort on graphics API usage errors (usually validation layer errors). May help see the problem if your system freezes.\n", CLI_OPTION_AVAILABILITY_TEMPLATE_DEBUG);
@@ -606,9 +616,9 @@ void Main::print_help(const char *p_binary) {
 	print_help_option("--extra-gpu-memory-tracking", "Enables additional memory tracking (see class reference for `RenderingDevice.get_driver_and_device_memory_report()` and linked methods). Currently only implemented for Vulkan. Enabling this feature may cause crashes on some systems due to buggy drivers or bugs in the Vulkan Loader. See https://github.com/godotengine/godot/issues/95967\n");
 	print_help_option("--accurate-breadcrumbs", "Force barriers between breadcrumbs. Useful for narrowing down a command causing GPU resets. Currently only implemented for Vulkan.\n");
 #endif
+#if defined(DEBUG_ENABLED)
 	print_help_option("--remote-debug <uri>", "Remote debug (<protocol>://<host/IP>[:<port>], e.g. tcp://127.0.0.1:6007).\n");
 	print_help_option("--single-threaded-scene", "Force scene tree to run in single-threaded mode. Sub-thread groups are disabled and run on the main thread.\n");
-#if defined(DEBUG_ENABLED)
 	print_help_option("--debug-collisions", "Show collision shapes when running the scene.\n", CLI_OPTION_AVAILABILITY_TEMPLATE_DEBUG);
 	print_help_option("--debug-paths", "Show path lines when running the scene.\n", CLI_OPTION_AVAILABILITY_TEMPLATE_DEBUG);
 	print_help_option("--debug-navigation", "Show navigation polygons when running the scene.\n", CLI_OPTION_AVAILABILITY_TEMPLATE_DEBUG);
@@ -619,12 +629,16 @@ void Main::print_help(const char *p_binary) {
 #endif
 	print_help_option("--max-fps <fps>", "Set a maximum number of frames per second rendered (can be used to limit power usage). A value of 0 results in unlimited framerate.\n");
 	print_help_option("--frame-delay <ms>", "Simulate high CPU load (delay each frame by <ms> milliseconds). Do not use as a FPS limiter; use --max-fps instead.\n");
+#if defined(DEBUG_ENABLED)
 	print_help_option("--time-scale <scale>", "Force time scale (higher values are faster, 1.0 is normal speed).\n");
 	print_help_option("--disable-vsync", "Forces disabling of vertical synchronization, even if enabled in the project settings. Does not override driver-level V-Sync enforcement.\n");
 	print_help_option("--disable-render-loop", "Disable render loop so rendering only occurs when called explicitly from script.\n");
+#endif
 	print_help_option("--disable-crash-handler", "Disable crash handler when supported by the platform code.\n");
+#if defined(DEBUG_ENABLED)
 	print_help_option("--fixed-fps <fps>", "Force a fixed number of frames per second. This setting disables real-time synchronization.\n");
 	print_help_option("--delta-smoothing <enable>", "Enable or disable frame delta smoothing [\"enable\", \"disable\"].\n");
+#endif
 	print_help_option("--print-fps", "Print the frames per second to the stdout.\n");
 #ifdef TOOLS_ENABLED
 	print_help_option("--editor-pseudolocalization", "Enable pseudolocalization for the editor and the project manager.\n", CLI_OPTION_AVAILABILITY_EDITOR);
@@ -1251,6 +1265,7 @@ Error Main::setup(const char *execpath, int argc, char *argv[], bool p_second_ph
 				OS::get_singleton()->print("Missing tablet driver argument, aborting.\n");
 				goto error;
 			}
+#ifdef DEBUG_ENABLED
 		} else if (arg == "--delta-smoothing") {
 			if (N) {
 				String string = N->get();
@@ -1274,6 +1289,7 @@ Error Main::setup(const char *execpath, int argc, char *argv[], bool p_second_ph
 				OS::get_singleton()->print("Missing delta-smoothing argument, aborting.\n");
 				goto error;
 			}
+#endif
 		} else if (arg == "--single-window") { // force single window
 
 			single_window = true;
@@ -1374,7 +1390,7 @@ Error Main::setup(const char *execpath, int argc, char *argv[], bool p_second_ph
 				OS::get_singleton()->print("Missing language argument, aborting.\n");
 				goto error;
 			}
-
+#if defined(DEBUG_ENABLED)
 		} else if (arg == "--remote-fs") { // remote filesystem
 
 			if (N) {
@@ -1420,6 +1436,7 @@ Error Main::setup(const char *execpath, int argc, char *argv[], bool p_second_ph
 				OS::get_singleton()->print("Missing render thread mode argument, aborting.\n");
 				goto error;
 			}
+#endif
 #ifdef TOOLS_ENABLED
 		} else if (arg == "-e" || arg == "--editor") { // starts editor
 
@@ -1622,6 +1639,7 @@ Error Main::setup(const char *execpath, int argc, char *argv[], bool p_second_ph
 #ifdef TOOLS_ENABLED
 			editor = true;
 #endif
+#if defined(DEBUG_ENABLED)
 		} else if (arg == "-b" || arg == "--breakpoints") { // add breakpoints
 
 			if (N) {
@@ -1632,7 +1650,7 @@ Error Main::setup(const char *execpath, int argc, char *argv[], bool p_second_ph
 				OS::get_singleton()->print("Missing list of breakpoints, aborting.\n");
 				goto error;
 			}
-
+#endif
 		} else if (arg == "--max-fps") { // set maximum rendered FPS
 
 			if (N) {
@@ -1652,7 +1670,7 @@ Error Main::setup(const char *execpath, int argc, char *argv[], bool p_second_ph
 				OS::get_singleton()->print("Missing frame delay argument, aborting.\n");
 				goto error;
 			}
-
+#if defined(DEBUG_ENABLED)
 		} else if (arg == "--time-scale") { // force time scale
 
 			if (N) {
@@ -1662,7 +1680,7 @@ Error Main::setup(const char *execpath, int argc, char *argv[], bool p_second_ph
 				OS::get_singleton()->print("Missing time scale argument, aborting.\n");
 				goto error;
 			}
-
+#endif
 		} else if (arg == "--main-pack") {
 			if (N) {
 				main_pack = N->get();
@@ -1671,11 +1689,10 @@ Error Main::setup(const char *execpath, int argc, char *argv[], bool p_second_ph
 				OS::get_singleton()->print("Missing path to main pack file, aborting.\n");
 				goto error;
 			}
-
+#if defined(DEBUG_ENABLED)
 		} else if (arg == "-d" || arg == "--debug") {
 			debug_uri = "local://";
 			OS::get_singleton()->_debug_stdout = true;
-#if defined(DEBUG_ENABLED)
 		} else if (arg == "--debug-collisions") {
 			debug_collisions = true;
 		} else if (arg == "--debug-paths") {
@@ -1695,6 +1712,7 @@ Error Main::setup(const char *execpath, int argc, char *argv[], bool p_second_ph
 		} else if (arg == "--test-rd-creation") {
 			test_rd_creation = true;
 #endif
+#if defined(DEBUG_ENABLED)
 		} else if (arg == "--remote-debug") {
 			if (N) {
 				debug_uri = N->get();
@@ -1740,6 +1758,7 @@ Error Main::setup(const char *execpath, int argc, char *argv[], bool p_second_ph
 			}
 		} else if (arg == "--disable-vsync") {
 			disable_vsync = true;
+#endif
 		} else if (arg == "--print-fps") {
 			print_fps = true;
 #ifdef TOOLS_ENABLED
@@ -1752,7 +1771,7 @@ Error Main::setup(const char *execpath, int argc, char *argv[], bool p_second_ph
 			OS::get_singleton()->disable_crash_handler();
 		} else if (arg == "--skip-breakpoints") {
 			skip_breakpoints = true;
-#ifndef _3D_DISABLED
+#if defined(DEBUG_ENABLED) && defined(_3D_DISABLED)
 		} else if (arg == "--xr-mode") {
 			if (N) {
 				String xr_mode = N->get().to_lower();
@@ -1771,7 +1790,7 @@ Error Main::setup(const char *execpath, int argc, char *argv[], bool p_second_ph
 				OS::get_singleton()->print("Missing --xr-mode argument, aborting.\n");
 				goto error;
 			}
-#endif // _3D_DISABLED
+#endif // DEBUG_ENABLED && _3D_DISABLED
 		} else if (arg == "--benchmark") {
 			OS::get_singleton()->set_use_benchmark(true);
 		} else if (arg == "--benchmark-file") {
@@ -1814,6 +1833,7 @@ Error Main::setup(const char *execpath, int argc, char *argv[], bool p_second_ph
 				goto error;
 			}
 #endif // TOOLS_ENABLED
+#if defined(DEBUG_ENABLED)
 		} else if (arg == "--wid") {
 			if (N) {
 				init_embed_parent_window_id = N->get().to_int();
@@ -1830,7 +1850,7 @@ Error Main::setup(const char *execpath, int argc, char *argv[], bool p_second_ph
 				OS::get_singleton()->print("Missing <window_id> argument for --wid <window_id>.\n");
 				goto error;
 			}
-
+#endif
 		} else if (arg == "--" || arg == "++") {
 			adding_user_args = true;
 		} else {
@@ -3705,6 +3725,7 @@ int Main::start() {
 		} else if (E->get() == "--install-android-build-template") {
 			install_android_build_template = true;
 #endif // TOOLS_ENABLED
+#if defined(DEBUG_ENABLED)
 		} else if (E->get().length() && E->get()[0] != '-' && positional_arg.is_empty()) {
 			positional_arg = E->get();
 
@@ -3721,9 +3742,9 @@ int Main::start() {
 				// for non-game applications.
 				game_path = E->get();
 			}
-		}
-		// Then parameters that have an argument to the right.
-		else if (E->next()) {
+#endif // DEBUG_ENABLED
+	   // Then parameters that have an argument to the right.
+		} else if (E->next()) {
 			bool parsed_pair = true;
 			if (E->get() == "-s" || E->get() == "--script") {
 				script = E->next()->get();
