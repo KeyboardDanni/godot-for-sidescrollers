@@ -3112,11 +3112,19 @@ void SceneShaderData::set_code(const String &p_code) {
 	uses_vertex_time = gen_code.uses_vertex_time;
 	uses_fragment_time = gen_code.uses_fragment_time;
 
+<<<<<<< HEAD
+=======
 	screen_texture_filter = gen_code.screen_texture_filter;
 	screen_texture_repeat = gen_code.screen_texture_repeat;
 	depth_texture_filter = gen_code.depth_texture_filter;
 	depth_texture_repeat = gen_code.depth_texture_repeat;
 
+	stencil_enabled = stencil_referencei != -1;
+	stencil_flags = stencil_readi | stencil_writei | stencil_write_depth_faili;
+	stencil_compare = StencilCompare(stencil_comparei);
+	stencil_reference = stencil_referencei;
+
+>>>>>>> GL: Set backbuffer texture filter for screen reading shaders
 #ifdef DEBUG_ENABLED
 	if (uses_particle_trails) {
 		WARN_PRINT_ONCE_ED("Particle trails are only available when using the Forward+ or Mobile renderers.");
