@@ -5,17 +5,17 @@
     - When set to `Parallel`, behaves the same as vanilla.
     - When set to `Sequential`, can save 1-2 frames of display lag at the cost of reduced performance (though for pixel art games, chances are your FPS is so high you won't even notice, even on a more modest system).
     - The inclusion of `Sequential` is controversial, so the patch lives here for the time being.
-- `patches/physics_lerp_settings_fix` - Fix changing physics interpolation in SceneTree at runtime.
+- `patches/4.5_physics_lerp_settings_fix` - Fix changing physics interpolation in SceneTree at runtime.
     - There are multiple bugs that occur when toggling this setting while the game is running.
         - Any static nodes that start out invisible will shake violently once they are unhidden.
         - Camera stops updating completely.
     - These issues may be fixed in the pending physics interpolation rework. Until then, this patch acts as a stopgap.
-- `patches/103257_simplify_array_inspector` - Condense Inspector layout for Arrays
+- `patches/4.5_103257_simplify_array_inspector` - Condense Inspector layout for Arrays
   - Improves UX when working with arrays and dictionaries within the inspector.
   - Based on https://github.com/godotengine/godot/pull/103257
-- `patches/110335_gl_screen_texture_filter` - GL: Set backbuffer texture filter for screen reading shaders
+- `patches/4.5_110335_gl_screen_texture_filter` - GL: Set backbuffer texture filter for screen reading shaders
   - Fixes screen reading shaders not using the correct texture filter in OpenGL.
   - https://github.com/godotengine/godot/pull/110335
-- `patches/restrict_main_args` - Restrict main args
+- `patches/4.5_restrict_main_args` - Restrict main args
   - Removes some executable commandline arguments that probably shouldn't be exposed in exports.
 - `patches/fork_readme` - Godot for Sidescrollers readme.
