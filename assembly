@@ -1,4 +1,4 @@
-stage gfs_patched 4.5-stable
+stage gfs_patched 4.5.1-stable
 
 merge gfs_patched patches/renderer_low_latency
 merge gfs_patched patches/4.5_physics_lerp_settings_fix
