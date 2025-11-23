@@ -16,6 +16,9 @@
 - `patches/4.5_110335_gl_screen_texture_filter` - GL: Set backbuffer texture filter for screen reading shaders
   - Fixes screen reading shaders not using the correct texture filter in OpenGL.
   - https://github.com/godotengine/godot/pull/110335
+- `patches/4.5_60178_shadow_normal_bias_splits` - Use lower shadow normal bias for distant directional shadow splits
+  - Fixes artifacts that happen at shadow splits.
+  - https://github.com/godotengine/godot/pull/60178
 - `patches/4.5_restrict_main_args` - Restrict main args
   - Removes some executable commandline arguments that probably shouldn't be exposed in exports.
 - `patches/fork_readme` - Godot for Sidescrollers readme.
