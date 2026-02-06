@@ -5,7 +5,7 @@
     - When set to `Parallel`, behaves the same as vanilla.
     - When set to `Sequential`, can save 1-2 frames of display lag at the cost of reduced performance (though for pixel art games, chances are your FPS is so high you won't even notice, even on a more modest system).
     - The inclusion of `Sequential` is controversial, so the patch lives here for the time being.
-- `patches/4.5_physics_lerp_settings_fix` - Fix changing physics interpolation in SceneTree at runtime.
+- `patches/4.6_physics_lerp_settings_fix` - Fix changing physics interpolation in SceneTree at runtime.
     - There are multiple bugs that occur when toggling this setting while the game is running.
         - Any static nodes that start out invisible will shake violently once they are unhidden.
         - Camera stops updating completely.
@@ -19,6 +19,7 @@
 - `patches/4.5_60178_shadow_normal_bias_splits` - Use lower shadow normal bias for distant directional shadow splits
   - Fixes artifacts that happen at shadow splits.
   - https://github.com/godotengine/godot/pull/60178
-- `patches/4.5_restrict_main_args` - Restrict main args
-  - Removes some executable commandline arguments that probably shouldn't be exposed in exports.
+- `patches/107339_external_invalid_material` - Fix external Material for invalid Material
+  - Fixes importing 3D models with unnamed materials set to use external materials.
+  - https://github.com/godotengine/godot/pull/107339
 - `patches/fork_readme` - Godot for Sidescrollers readme.

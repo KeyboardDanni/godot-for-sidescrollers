@@ -4,4 +4,5 @@ merge gfs_patched patches/renderer_low_latency
 merge gfs_patched patches/4.6_physics_lerp_settings_fix
 merge gfs_patched patches/4.5_110335_gl_screen_texture_filter
 merge gfs_patched patches/4.5_60178_shadow_normal_bias_splits
+merge gfs_patched patches/107339_external_invalid_material
 merge gfs_patched patches/fork_readme
