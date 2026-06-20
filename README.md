@@ -29,7 +29,7 @@ Special thanks to [fire](https://github.com/fire) for guiding me toward this wor
 
 ## Which version?
 
-Godot for Sidescrollers is currently patched against **4.6 stable**.
+Godot for Sidescrollers is currently patched against **4.7 stable**.
 
 ## Which patches are included?
 

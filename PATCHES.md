@@ -1,6 +1,6 @@
 # List of patches in Godot for Sidescrollers
 
-- `patches/renderer_low_latency` - Reduced display latency through optional CPU/GPU synchronization.
+- `patches/4.7_renderer_low_latency` - Reduced display latency through optional CPU/GPU synchronization.
     - Adds a new option via ProjectSetting `rendering/driver/synchronization/cpu_gpu_sync` and script function `RenderingServer::set_cpu_gpu_sync_mode()`.
     - When set to `Parallel`, behaves the same as vanilla.
     - When set to `Sequential`, can save 1-2 frames of display lag at the cost of reduced performance (though for pixel art games, chances are your FPS is so high you won't even notice, even on a more modest system).
@@ -10,16 +10,14 @@
         - Any static nodes that start out invisible will shake violently once they are unhidden.
         - Camera stops updating completely.
     - These issues may be fixed in the pending physics interpolation rework. Until then, this patch acts as a stopgap.
-- `patches/4.5_103257_simplify_array_inspector` - Condense Inspector layout for Arrays
-  - Improves UX when working with arrays and dictionaries within the inspector.
-  - Based on https://github.com/godotengine/godot/pull/103257
-- `patches/4.5_110335_gl_screen_texture_filter` - GL: Set backbuffer texture filter for screen reading shaders
+- `patches/4.7_110335_gl_screen_texture_filter` - GL: Set backbuffer texture filter for screen reading shaders
   - Fixes screen reading shaders not using the correct texture filter in OpenGL.
   - https://github.com/godotengine/godot/pull/110335
-- `patches/4.5_60178_shadow_normal_bias_splits` - Use lower shadow normal bias for distant directional shadow splits
+- `patches/4.7_60178_shadow_normal_bias_splits` - Use lower shadow normal bias for distant directional shadow splits
   - Fixes artifacts that happen at shadow splits.
   - https://github.com/godotengine/godot/pull/60178
 - `patches/107339_external_invalid_material` - Fix external Material for invalid Material
   - Fixes importing 3D models with unnamed materials set to use external materials.
   - https://github.com/godotengine/godot/pull/107339
+  - Currently disabled as this patch hasn't been updated to 4.7 yet.
 - `patches/fork_readme` - Godot for Sidescrollers readme.
