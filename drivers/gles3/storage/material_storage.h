@@ -163,11 +163,13 @@ struct CanvasShaderData : public ShaderData {
 	BlendMode blend_mode;
 
 	bool uses_screen_texture;
-	bool uses_screen_texture_mipmaps;
 	bool uses_sdf;
 	bool uses_time;
 	bool uses_custom0;
 	bool uses_custom1;
+
+	ShaderLanguage::TextureFilter screen_texture_filter;
+	ShaderLanguage::TextureRepeat screen_texture_repeat;
 
 	uint64_t vertex_input_mask;
 
@@ -327,7 +329,6 @@ struct SceneShaderData : public ShaderData {
 	bool uses_sss;
 	bool uses_transmittance;
 	bool uses_screen_texture;
-	bool uses_screen_texture_mipmaps;
 	bool uses_depth_texture;
 	bool uses_normal_texture;
 	bool uses_bent_normal_texture;
@@ -346,6 +347,11 @@ struct SceneShaderData : public ShaderData {
 	bool uses_custom3;
 	bool uses_bones;
 	bool uses_weights;
+
+	ShaderLanguage::TextureFilter screen_texture_filter;
+	ShaderLanguage::TextureRepeat screen_texture_repeat;
+	ShaderLanguage::TextureFilter depth_texture_filter;
+	ShaderLanguage::TextureRepeat depth_texture_repeat;
 
 	uint64_t vertex_input_mask;
 
